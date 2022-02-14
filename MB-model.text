@@ -1,0 +1,23 @@
+library(bnlearn)
+
+glds21 <- read.csv("C:/Data/GLDS120.csv")
+
+# Transpose table YOU WANT
+glds21.T <- t(glds21[,2:ncol(glds21)])
+
+# Set the column headings from the first column in the original table
+colnames(glds21.T) <- glds21[,1] 
+
+glds21.T <- as.data.frame(glds21.T)
+
+# ALgorithm Incremental Association Markov Blanket
+
+gldspeq=glds21.T[,0001:21557]
+
+glds.iamb = iamb(gldspeq,alpha=0.05)
+
+glds.iamb
+
+graphviz.plot(glds.iamb,main="ALgorithm Incremental Association Markov Blanket (alpha=0.05)")
+
+write.dot(graph= glds.iamb, file="dog120.dot")
